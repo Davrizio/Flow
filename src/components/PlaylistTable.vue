@@ -16,11 +16,17 @@
       <tbody>
         <tr v-for="(song, index) in songs" :key="song.id">
           <!-- Number -->
-          <td :class="['py-2 px-4', { 'pt-6': index === 0 }]">{{ index + 1 }}</td>
+          <td :class="['py-2 px-4', { 'pt-6': index === 0 }]">
+            {{ index + 1 }}
+          </td>
 
           <!-- Title -->
           <td :class="['flex gap-4 py-2 px-4', { 'pt-6': index === 0 }]">
-            <img :src="song.album.image" :alt="song.album.name" class="w-10 h-10" />
+            <img
+              :src="song.album.image"
+              :alt="song.album.name"
+              class="w-10 h-10"
+            />
             <div>
               <p class="text-white text-base">{{ song.title }}</p>
               <p>{{ getArtists(song.artists) }}</p>
@@ -28,10 +34,14 @@
           </td>
 
           <!-- Album -->
-          <td :class="['py-2 px-4', { 'pt-6': index === 0 }]">{{ song.album.name }}</td>
+          <td :class="['py-2 px-4', { 'pt-6': index === 0 }]">
+            {{ song.album.name }}
+          </td>
 
           <!-- Duration -->
-          <td :class="['py-2 px-4', { 'pt-6': index === 0 }]">{{ song.duration }}</td>
+          <td :class="['py-2 px-4', { 'pt-6': index === 0 }]">
+            {{ song.duration }}
+          </td>
 
           <!-- Favorite -->
           <td :class="['py-2 px-4 text-center', { 'pt-6': index === 0 }]">
@@ -41,7 +51,9 @@
               class="focus:outline-none"
               @click="addToFavorites(song.id)"
             >
-              <HeartIconOutline class="h-6 w-6 text-neutral-300 hover:text-white" />
+              <HeartIconOutline
+                class="h-6 w-6 text-neutral-300 hover:text-white"
+              />
             </button>
             <button
               v-else
@@ -49,7 +61,9 @@
               class="focus:outline-none"
               @click="removeFromFavorites(song.id)"
             >
-              <HeartIconSolid class="h-6 w-6 text-green-600 hover:text-green-700" />
+              <HeartIconSolid
+                class="h-6 w-6 text-green-600 hover:text-green-700"
+              />
             </button>
           </td>
         </tr>
@@ -60,6 +74,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import axios from "axios";
 import { HeartIcon } from "@heroicons/vue/24/outline";
 import type { Song } from "@/types";
 import { HeartIcon as HeartIconOutline } from "@heroicons/vue/24/outline";
@@ -81,4 +96,13 @@ const addToFavorites = (id: number) => {
 const removeFromFavorites = (id: number) => {
   emit("removeFromFavorites", id);
 };
+
+axios
+  .get("https://cat-fact.herokuapp.com/facts")
+  .then((response) => {
+    console.log(response.data);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 </script>
