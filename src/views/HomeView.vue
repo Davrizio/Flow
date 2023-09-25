@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from "vue";
 import PlaylistTable from "@/components/PlaylistTable.vue";
+import MusicApi from "@/components/MusicApi.vue";
 import { PlayIcon } from "@heroicons/vue/24/solid";
 import { MagnifyingGlassIcon } from "@heroicons/vue/24/outline";
 import playlist from "@/api/playlist.json";
@@ -10,7 +11,9 @@ const songs = ref<Song[]>(playlist);
 const searchTerm = ref("");
 
 const filteredSongs = computed(() =>
-  songs.value.filter((song) => song.title.toLowerCase().includes(searchTerm.value.toLowerCase()))
+  songs.value.filter((song) =>
+    song.title.toLowerCase().includes(searchTerm.value.toLowerCase())
+  )
 );
 
 const addToFavorites = (id: number) => {
@@ -26,7 +29,9 @@ const removeFromFavorites = (id: number) => {
 
 <template>
   <header class="py-8 border-b-[1px] border-neutral-700">
-    <div class="max-w-5xl mx-auto md:flex justify-between items-center px-4 md:px-8">
+    <div
+      class="max-w-5xl mx-auto md:flex justify-between items-center px-4 md:px-8"
+    >
       <div class="flex items-center gap-6 mb-6 md:mb-0">
         <!-- Play button -->
         <button
@@ -60,5 +65,6 @@ const removeFromFavorites = (id: number) => {
       @add-to-favorites="addToFavorites"
       @remove-from-favorites="removeFromFavorites"
     />
+    <MusicApi />
   </main>
 </template>

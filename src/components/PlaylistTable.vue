@@ -74,7 +74,6 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import axios from "axios";
 import { HeartIcon } from "@heroicons/vue/24/outline";
 import type { Song } from "@/types";
 import { HeartIcon as HeartIconOutline } from "@heroicons/vue/24/outline";
@@ -96,13 +95,4 @@ const addToFavorites = (id: number) => {
 const removeFromFavorites = (id: number) => {
   emit("removeFromFavorites", id);
 };
-
-axios
-  .get("https://cat-fact.herokuapp.com/facts")
-  .then((response) => {
-    console.log(response.data);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
 </script>
