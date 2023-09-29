@@ -16,23 +16,29 @@
 
 <script>
 import axios from "axios";
+const headers = {
+  "User-Agent": "My Artist Search/1.0"
+};
 
 export default {
   data() {
     return {
       type: "",
-      text: [],
+      text: "",
       loading: true,
       error: ""
     };
   },
   mounted() {
     axios
-      .get("https://cat-fact.herokuapp.com/facts")
+      .get("https://api.discogs.com/releases/249504", {
+        headers
+      })
       .then((response) => {
-        this.type = response.data[1].type;
-        this.text = response.data[1].text;
+        this.type = response.data.artists[0].idArtist;
+        this.text = response.data.artists[0].strArtist;
         this.loading = false;
+        console.log(response);
       })
       .catch((error) => {
         this.error = error.message;
