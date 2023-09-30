@@ -17,9 +17,10 @@
 <script>
 import axios from "axios";
 const headers = {
-  "User-Agent": "My Artist Search/1.0"
+  "User-Agent": "My Artist Search/1.0",
+  Authorization:
+    "Discogs key=YJtvkuqAEXCJOqmrEPCD, secret=dAKxsegtWuaMqsOOZpxlFvzizKbYPBox"
 };
-
 export default {
   data() {
     return {
@@ -31,12 +32,12 @@ export default {
   },
   mounted() {
     axios
-      .get("https://api.discogs.com/releases/249504", {
+      .get("https://api.discogs.com//database/search?q={nirvana}&{?artist}", {
         headers
       })
       .then((response) => {
-        this.type = response.data.artists[0].idArtist;
-        this.text = response.data.artists[0].strArtist;
+        this.type = response.data;
+        this.text = response.data;
         this.loading = false;
         console.log(response);
       })
