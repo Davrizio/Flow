@@ -6,6 +6,8 @@ import { PlayIcon } from "@heroicons/vue/24/solid";
 import { MagnifyingGlassIcon } from "@heroicons/vue/24/outline";
 import playlist from "@/api/playlist.json";
 import type { Song } from "@/types";
+import MusicApiSearch from "@/components/MusicApiSearch.vue";
+import MusicApiArtist from "@/components/MusicApiArtist.vue";
 
 const songs = ref<Song[]>(playlist);
 const searchTerm = ref("");
@@ -65,6 +67,7 @@ const removeFromFavorites = (id: number) => {
       @add-to-favorites="addToFavorites"
       @remove-from-favorites="removeFromFavorites"
     />
-    <MusicApi />
+    <MusicApiSearch />
+    <MusicApiArtist />
   </main>
 </template>

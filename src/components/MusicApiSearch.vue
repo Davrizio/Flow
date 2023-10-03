@@ -1,16 +1,6 @@
 <template>
-  <div class="text-white text-base">
-    <h1>{{ type }}</h1>
-    <h1>{{ text }}</h1>
-    <ul v-if="loading">
-      <li>Loading...</li>
-    </ul>
-    <ul v-else-if="error">
-      <li>Error: {{ error }}</li>
-    </ul>
-    <ul v-else>
-      <li v-for="item in text" :key="item.id">{{ item.name }}</li>
-    </ul>
+  <div class="">
+    <img :src="image" alt="artist image" />
   </div>
 </template>
 
@@ -24,8 +14,8 @@ const headers = {
 export default {
   data() {
     return {
-      type: "",
-      text: "",
+      image: "",
+      id: "",
       loading: true,
       error: ""
     };
@@ -36,8 +26,8 @@ export default {
         headers
       })
       .then((response) => {
-        this.type = response.data;
-        this.text = response.data;
+        this.image = response.data.results[0].cover_image;
+        this.id = response.data.results[0].id;
         this.loading = false;
         console.log(response);
       })
